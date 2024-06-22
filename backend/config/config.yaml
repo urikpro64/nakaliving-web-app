@@ -1,0 +1,13 @@
+client:
+  postgres:
+    host: postgres
+    port: 5432
+    db: backend
+    user: root
+    pass: thisismydatabasepassword
+  http:
+    address: 0.0.0.0:3000
+auth:
+  session:
+    secret: secret
+    maxAge: 1296000 # 15 days in second unit
