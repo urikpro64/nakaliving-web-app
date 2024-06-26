@@ -17,6 +17,10 @@ import { UserInformationPage } from "./pages/user/user-information";
 import { UserEstatePage } from "./pages/user/user-estate";
 import { UserAppointmentPage } from "./pages/user/user-appointment";
 import { UserReportPage } from "./pages/user/user-report";
+import { OwnerInformationPage } from "./pages/owner/owner-information";
+import { OwnerEstatePage } from "./pages/owner/owner-estate";
+import { OwnerReportPage } from "./pages/owner/owner-report";
+import { OwnerAppointmentPage } from "./pages/owner/owner-appointment";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -36,6 +40,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/user/:userId/estate" element={<UserEstatePage />} />
         <Route path="/user/:userId/report" element={<UserReportPage />} />
         <Route path="/user/:userId/appointment" element={<UserAppointmentPage />} />
+        <Route path="/owner" element={<OwnerInformationPage />} />
+        <Route path="/owner/estate" element={<OwnerEstatePage />} />
+        <Route path="/owner/report" element={<OwnerReportPage />} />
+        <Route path="/owner/appointment" element={<OwnerAppointmentPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

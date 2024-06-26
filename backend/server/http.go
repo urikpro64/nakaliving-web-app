@@ -1,0 +1,85 @@
+package server
+
+import (
+	"context"
+	"nakaliving/backend/domain"
+	"nakaliving/backend/platform"
+	"nakaliving/backend/server/controller"
+	"nakaliving/backend/server/middleware"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	"go.uber.org/zap"
+)
+
+type HTTPServer struct {
+	server    *http.Server
+	router    *gin.Engine
+	platforms *platform.Platforms
+	useCases  *domain.UseCases
+}
+
+func New(
+	address string,
+	platforms *platform.Platforms,
+	useCases *domain.UseCases,
+) *HTTPServer {
+	gin.SetMode(gin.ReleaseMode)
+
+	return &HTTPServer{
+		server:    &http.Server{Addr: address},
+		router:    gin.New(),
+		platforms: platforms,
+		useCases:  useCases,
+	}
+}
+
+func (s *HTTPServer) applyRoutes() http.Handler {
+
+	// // Initialize controllers
+	healthController := controller.NewHealthController()
+	// userController := controller.NewUserController(s.useCases.User)
+	// authController := controller.NewAuthController(s.useCases.Auth, s.useCases.User)
+
+	// // Initialize middlewares
+	c := middleware.ErrorHandler // For alias, c stand for controller
+
+	// authMiddleware := middleware.NewAuthMiddleware(s.useCases.Auth)
+
+	// // Apply middlewares
+	// s.router.Use(middleware.Recovery)
+	// s.router.Use(middleware.Logger(*s.platforms.InfluxDB))
+
+	// // Apply routes
+	s.router.GET("/", c(healthController.Index))
+	// s.router.GET("/metrics", c(healthController.Metrics))
+	// s.router.NoRoute(c(healthController.NotFound))
+
+	// s.router.GET("/user/:id", c(authMiddleware), c(userController.GetById))
+	// s.router.POST("/user", c(authMiddleware), c(userController.Create))
+
+	// s.router.GET("/auth/me", c(authMiddleware), c(authController.Me))
+	// s.router.POST("/auth/signin", c(authController.SignIn))
+	// s.router.POST("/auth/signout", c(authController.SignOut))
+
+	return s.router
+}
+
+func (s *HTTPServer) MustStart() {
+	zap.S().Infof("http server is starting up on %s", s.server.Addr)
+
+	s.server.Handler = s.applyRoutes()
+
+	if err := s.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		zap.L().Fatal("cannot start http server", zap.Error(err))
+	}
+}
+
+func (s *HTTPServer) Stop() {
+	zap.L().Info("http server is shutting down")
+	if err := s.server.Shutdown(context.Background()); err != nil {
+		zap.L().Error("cannot shutdown http server", zap.Error(err))
+	}
+	zap.L().Info("http server exited")
+}

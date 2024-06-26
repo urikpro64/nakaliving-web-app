@@ -17,13 +17,13 @@ export function OwnerSideNavBar() {
                 <div className="flex flex-col h-full pt-4 gap-y-4 text-neutral-700 font-medium text-sm">
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <User />
-                        <Link to="/user/C000001">
+                        <Link to="/owner">
                             <div>ข้อมูลผู้ใช้</div>
                         </Link>
                     </div>
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <Building2 />
-                        <Link to="/user/C000001/estate">
+                        <Link to="/owner/estate">
                             <div>อสังหาริมทรัพย์</div>
                         </Link>
                     </div>
@@ -39,13 +39,13 @@ export function OwnerSideNavBar() {
                     </div>
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <BookUser />
-                        <Link to="/user/C000001/appointment">
+                        <Link to="/owner/appointment">
                             <div>มอบหมาย</div>
                         </Link>
                     </div>
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <ScrollText />
-                        <Link to="/user/C000001/report">
+                        <Link to="/owner/report">
                             <div>รายงาน</div>
                         </Link>
                     </div>
