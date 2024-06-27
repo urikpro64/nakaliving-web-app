@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 
 	errs "nakaliving/backend/domain/error"
+	"nakaliving/backend/internal/constant"
 	"nakaliving/backend/server/payload/response"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +18,8 @@ func NewHealthController() *HealthController {
 }
 
 func (c *HealthController) Index(ctx *gin.Context) error {
-	ctx.Cookie("gin_cookie")
+	cookie, err := ctx.Cookie(constant.SessionCookieName)
+	fmt.Println(cookie, err)
 	return response.Success(ctx.Writer, http.StatusOK, response.Map{
 		"message": "hello world",
 	})

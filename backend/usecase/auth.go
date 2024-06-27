@@ -19,8 +19,8 @@ func NewAuthUseCase(cfg *config.Config, sessionUseCase domain.SessionUseCase, us
 	return &authUseCase{cfg: cfg, sessionUseCase: sessionUseCase, userUseCase: userUseCase}
 }
 
-func (u *authUseCase) Authenticate(header string) (*domain.User, error) {
-	session, err := u.sessionUseCase.Validate(header)
+func (u *authUseCase) Authenticate(cookie string) (*domain.User, error) {
+	session, err := u.sessionUseCase.Validate(cookie)
 	if err != nil {
 		return nil, errs.WrapCode(err, errs.ErrInvalidSession, "cannot authenticate user")
 	}

@@ -40,9 +40,10 @@ func New(
 func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},
-		AllowMethods:     []string{"*"},
-		AllowHeaders:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST"},
+		AllowHeaders:     []string{"Content-Type", "Access-Control-Allow-Headers"},
 		AllowCredentials: true,
+		ExposeHeaders:    []string{"Set-Cookie"},
 		MaxAge:           12 * time.Hour,
 	}))
 

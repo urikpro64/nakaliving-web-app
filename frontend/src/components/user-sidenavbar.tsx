@@ -1,7 +1,24 @@
+import { Response } from "@/types"
 import { BookUser, Home, LogOutIcon, User } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+
+const BASE_URL = import.meta.env.VITE_API_URL
 
 export function UserSideNavBar() {
+    const navigate = useNavigate();
+    const onLogout = async () => {
+        const response: Response = await fetch(`${BASE_URL}/auth/signout`, {
+            method: "POST",
+            credentials: "include",
+        }).then(response => response.json())
+        console.log(response);
+        if(response.error) {
+            console.log(response.error)
+            return
+        }
+        navigate("/")
+    }
+
     return (
         <nav className="px-4 py-4 shadow-2xl">
             <div className="flex flex-col w-full h-full justify-between text-nowrap font-semibold gap-y-2 divide-y divide-gray-400">
@@ -17,13 +34,13 @@ export function UserSideNavBar() {
                 <div className="flex flex-col h-full pt-4 gap-y-4 text-neutral-700 font-medium text-sm">
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <User />
-                        <Link to="/user/C000001">
+                        <Link to="/user">
                             <div>ข้อมูลผู้ใช้</div>
                         </Link>
                     </div>
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <BookUser />
-                        <Link to="/user/C000001/appointment">
+                        <Link to="/user/appointment">
                             <div>นัดหมาย</div>
                         </Link>
                     </div>
@@ -31,7 +48,7 @@ export function UserSideNavBar() {
                 <div className="flex flex-col pt-2">
                     <div className="flex flex-row w-full gap-x-2 items-center p-2 bg-red-500 text-white rounded-md shadow-md drop-shadow-md">
                         <LogOutIcon />
-                        <div>ออกจากระบบ</div>
+                        <button onClick={onLogout}>ออกจากระบบ</button>
                     </div>
                 </div>
             </div>

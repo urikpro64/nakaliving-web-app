@@ -1,9 +1,31 @@
 import { Navbar } from "@/components/navbar";
 import { UserSideNavBar } from "@/components/user-sidenavbar";
-import { useParams } from "react-router-dom";
+import { User } from "@/types";
+import { CircleArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const BASE_URL = import.meta.env.VITE_API_URL
 
 export function UserInformationPage() {
-    const { userId } = useParams();
+    const [user,setUser] = useState<User>();
+    useEffect(() => {
+        fetch(`${BASE_URL}/auth/me`, {
+            method: "GET",
+            credentials: "include",
+        }).then(response => response.json())
+        .then(response => setUser(response.data))
+    },[])
+
+    if (!user) {
+        return (
+            <div className="relative w-full h-screen flex max-h-screen flex-col ">
+                <Navbar />
+                <main className="flex flex-row h-full items-center justify-center">
+                    <CircleArrowLeft className="animate-spin"></CircleArrowLeft>
+                </main>
+            </div>
+        )
+    }
     return (
         <div className="relative w-full h-screen flex max-h-screen flex-col ">
             <Navbar />
@@ -20,20 +42,20 @@ export function UserInformationPage() {
                             <input
                                 className="p-2 bg-gray-200 rounded-md text-gray-600"
                                 type="text"
-                                value={userId}
+                                value={user.name}
                                 disabled
                             />
                             <label>ที่อยู่</label>
                             <textarea
                                 className="p-2 bg-gray-200 rounded-md text-gray-600"
-                                value={userId}
+                                value={user.address ? user.address:""}
                                 disabled
                             />
                             <label>เบอร์โทร</label>
                             <input
                                 className="p-2 bg-gray-200 rounded-md text-gray-600"
                                 type="text"
-                                value={userId}
+                                value={user.tel}
                                 disabled
                             />
                             <button className="p-2 rounded-md bg-gray-700 text-white">แก้ไขข้อมูล</button>
@@ -43,21 +65,21 @@ export function UserInformationPage() {
                             <input
                                 className="p-2 bg-gray-200 rounded-md text-gray-600"
                                 type="text"
-                                value={userId}
+                                value={user.ID}
                                 disabled
                             />
                             <label>ชื่อผู้ใช้</label>
                             <input
                                 className="p-2 bg-gray-200 rounded-md text-gray-600"
                                 type="text"
-                                value={userId+"@gmail.com"}
+                                value={user.email}
                                 disabled
                             />
                             <label>รหัสผ่าน</label>
                             <input
                                 className="p-2 bg-gray-200 rounded-md text-gray-600"
                                 type="password"
-                                value={userId}
+                                value={1234}
                                 disabled
                             />
                             <button className="p-2 rounded-md bg-gray-700 text-white">เปลี่ยนรหัสผ่าน</button>

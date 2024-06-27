@@ -39,19 +39,21 @@ func (r *userRepository) Get(id string) (*domain.User, error) {
 }
 
 func (r *userRepository) GetBySessionId(id string) (*domain.User, error) {
+	var session domain.Session
 	var user domain.User
-	// err := r.db.Get(
+	result := r.db.Where("id = ?", id).First(&session)
+	if result.Error == gorm.ErrRecordNotFound {
+		return nil, fmt.Errorf("session not found: %w", result.Error)
+	} else if result.Error != nil {
+		return nil, fmt.Errorf("cannot query to get session: %w", result.Error)
+	}
 
-	// 	&user,
-	// 	"SELECT user.* FROM user JOIN session ON user_id = session.user_id WHERE session.id = $1",
-	// 	id,
-	// )
-
-	// if err == sql.ErrNoRows {
-	// 	return nil, nil
-	// } else if err != nil {
-	// 	return nil, fmt.Errorf("cannot query to get user by session id: %w", err)
-	// }
+	result = r.db.Where("id = ?", session.UserId).First(&user)
+	if result.Error == gorm.ErrRecordNotFound {
+		return nil, fmt.Errorf("user not found: %w", result.Error)
+	} else if result.Error != nil {
+		return nil, fmt.Errorf("cannot query to get user: %w", result.Error)
+	}
 
 	return &user, nil
 }

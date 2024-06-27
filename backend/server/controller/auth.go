@@ -48,14 +48,12 @@ func (c *AuthController) SignIn(ctx *gin.Context) error {
 	}
 	ctx.SetCookie(cookie.Name, cookie.Value, cookie.MaxAge, cookie.Path, cookie.Domain, cookie.Secure, cookie.HTTPOnly)
 	return response.Success(ctx.Writer, http.StatusOK, response.Map{
-		"cookie":     cookie,
 		"expired_at": cookie.MaxAge,
 	})
 }
 
 func (c *AuthController) SignOut(ctx *gin.Context) error {
 	sid, _ := ctx.Cookie(constant.SessionCookieName)
-
 	cookie, err := c.authUseCase.SignOut(sid)
 	if err != nil {
 		return err

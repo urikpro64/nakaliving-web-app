@@ -36,10 +36,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/estate/insert" element={<EstateInsertPage />} />
         <Route path="/appointment" element={<AppointmentPage />} />
         <Route path="/estate/:estateId/appointment" element={<EstateAppointmentPage />}/>
-        <Route path="/user/:userId" element={<UserInformationPage />} />
-        <Route path="/user/:userId/estate" element={<UserEstatePage />} />
-        <Route path="/user/:userId/report" element={<UserReportPage />} />
-        <Route path="/user/:userId/appointment" element={<UserAppointmentPage />} />
+        <Route path="/user/" element={<UserInformationPage />} />
+        <Route path="/user/estate" element={<UserEstatePage />} />
+        <Route path="/user/report" element={<UserReportPage />} />
+        <Route path="/user/appointment" element={<UserAppointmentPage />} />
         <Route path="/owner" element={<OwnerInformationPage />} />
         <Route path="/owner/estate" element={<OwnerEstatePage />} />
         <Route path="/owner/report" element={<OwnerReportPage />} />

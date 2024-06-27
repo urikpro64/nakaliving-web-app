@@ -1,10 +1,25 @@
+import { User } from "@/types";
 import { UserCircle } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+const BASE_URL = import.meta.env.VITE_API_URL
+
 export function Navbar() {
   const navItems = [
     { label: "อสังหาริมทรัพย์", url: "/estate" },
     // { label: "นัดหมาย", url: "/appointment" },
   ];
+
+  const [user, setUser] = useState<User>();
+  useEffect(() => {
+    fetch(`${BASE_URL}/auth/me`, {
+      method: "GET",
+      credentials: "include",
+    }).then(response => response.json())
+      .then(response => setUser(response.data))
+  }, [])
+
   return (
     <nav className="bg-white shadow-md">
       <div className="flex w-full items-center flex-row p-5 justify-between">
@@ -28,16 +43,23 @@ export function Navbar() {
         </div>
         {/* right */}
         <div className="flex space-x-3 items-center">
-          <Link to={"/login"}>
-            <button className="">เข้าสู่ระบบ</button>
-          </Link>
-          <Link to={"/register"}>
-            <button className="border-2 border-gray-700 hover:bg-gray-700 hover:text-white transition-all duration-500 p-2 rounded-md">สมัครสมาชิก</button>
-          </Link>
-          <Link to={"/user/C000001"} className="flex flex-row gap-x-2">
-            <div className="font-semibold">C000001</div>
-            <UserCircle></UserCircle>
-          </Link>
+          {!user ?
+            <div className="items-center space-x-3">
+              <Link to={"/login"}>
+                <button className="">เข้าสู่ระบบ</button>
+              </Link>
+              <Link to={"/register"}>
+                <button className="border-2 border-gray-700 hover:bg-gray-700 hover:text-white transition-all duration-500 p-2 rounded-md">สมัครสมาชิก</button>
+              </Link>
+            </div>
+            :
+            <Link to={"/user"} className="flex flex-row gap-x-2">
+              <div className="font-semibold">{user.name}</div>
+              <UserCircle></UserCircle>
+            </Link>
+          }
+
+
         </div>
       </div>
     </nav>

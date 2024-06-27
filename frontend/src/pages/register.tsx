@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+const BASE_URL = import.meta.env.VITE_API_URL
+
 type FormData = {
   Name: string
   Address: string
@@ -26,7 +28,7 @@ export function RegisterPage() {
       setAlertMessage("Your confirm password is not match");
       return
     }
-    const result = await fetch("http://localhost:3000/user", {
+    const result = await fetch(`${BASE_URL}/user`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json', // Specify JSON content type
