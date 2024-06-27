@@ -95,14 +95,6 @@ export function RegisterPage() {
           />
         </div>
         <div className="w-1/2 flex justify-center mt-5 ">
-          <button
-            onClick={() => {
-              window.history.back();
-            }}
-            className="bg-red-500 border text-xl border-black text-white p-2   rounded-md absolute top-5 right-5"
-          >
-            {"<=="}
-          </button>
           <form className="flex flex-col gap-5" onSubmit={onSubmit}>
             <div className="size-20 self-center rounded-full bg-lime-400"></div>
             <h1 className="text-5xl font-bold text-center mb-10">
