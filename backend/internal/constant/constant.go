@@ -11,7 +11,7 @@ var (
 
 	Environment = os.Getenv("ENV")
 
-	SessionCookieName = "sid"
+	SessionCookieName = "session-cookie"
 
 	UserCtxLocal = "user"
 )

@@ -51,7 +51,8 @@ func (u *sessionUseCase) Create(
 	ipAddress string,
 	userAgent string,
 ) (*domain.Cookie, error) {
-	if err := u.sessionRepository.DeleteDuplicates(userId, userAgent, ipAddress); err != nil {
+	err := u.sessionRepository.DeleteDuplicates(userId, ipAddress, userAgent)
+	if err != nil {
 		return nil, errs.WrapCode(err, errs.ErrDestroySession, "cannot delete previous session to create a new session for user id %d", userId)
 	}
 
@@ -60,7 +61,7 @@ func (u *sessionUseCase) Create(
 	createdAt := time.Now()
 	expiredAt := createdAt.Add(time.Duration(u.cfg.Auth.Session.MaxAge) * time.Second)
 
-	err := u.sessionRepository.Create(&domain.Session{
+	err = u.sessionRepository.Create(&domain.Session{
 		Id:        id,
 		UserId:    userId,
 		IpAddress: ipAddress,

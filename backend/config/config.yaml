@@ -6,7 +6,7 @@ client:
     user: root
     pass: mydatabasepassword
   http:
-    address: 0.0.0.0:3000
+    address: localhost:3000
 auth:
   session:
     secret: secret

@@ -21,7 +21,7 @@ func NewUserUsecase(
 	}
 }
 
-func (u *userUsecase) Create(email string, password string) (*domain.User, error) {
+func (u *userUsecase) Create(email string, password string, name string, role string, address string, tel string) (*domain.User, error) {
 	if _, err := mail.ParseAddress(email); err != nil {
 		return nil, errs.WrapCode(
 			err,
@@ -47,6 +47,10 @@ func (u *userUsecase) Create(email string, password string) (*domain.User, error
 	user = &domain.User{
 		Email:    email,
 		Password: string(hashedPassword),
+		Name:     name,
+		Role:     "user",
+		Address:  address,
+		Tel:      tel,
 	}
 
 	if err = u.userRepository.Create(user); err != nil {

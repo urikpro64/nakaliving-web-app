@@ -1,6 +1,41 @@
 import { Navbar } from "@/components/navbar";
-
+import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+type FormData = {
+  Email: string
+  Password: string
+}
 export function LoginPage() {
+  // const navigate = useNavigate();
+  // const [cookies, setCookie, removeCookie] = useCookies(['user']);
+  const [alertMessage, setAlertMessage] = useState<string>("")
+  const {
+    register,
+    handleSubmit,
+  } = useForm<FormData>()
+
+  const onSubmit = handleSubmit(async (data) => {
+    setAlertMessage("");
+    const result = await fetch("http://localhost:3000/auth/signin", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    }).then(response => response.json())
+    // setCookie(result.data.cookie.Name, result.data.cookie.Value, { path: "/", maxAge: result.data.cookie.MaxAge })
+    console.log(result)
+    if (result.success) {
+      const result = await fetch("http://localhost:3000/auth/me", {
+        method: "GET",
+      }).then(response => response.json())
+      console.log(result)
+      
+      return
+    }
+  })
   return (
     <div className="relative w-full flex max-h-screen flex-col overflow-hidden">
       <Navbar />
@@ -20,14 +55,15 @@ export function LoginPage() {
           >
             {"<=="}
           </button>
-          <div className="flex flex-col gap-5">
+          <form className="flex flex-col gap-5" onSubmit={onSubmit}>
             <div className="size-20 self-center rounded-full bg-lime-400"></div>
             <h1 className="text-5xl font-bold text-center mb-10">
               เข้าสู่ระบบ
             </h1>
-            <input className="bg-gray-200 rounded-md p-2" type="text" placeholder="Email" />
-            <input className="bg-gray-200 rounded-md p-2" type="password" placeholder="Password" />
-            <button className="bg-green-500 text-white p-2 rounded-md">
+            <input {...register("Email", { required: true })} className="bg-gray-200 rounded-md p-2" type="text" placeholder="Email" />
+            <input {...register("Password", { required: true })} className="bg-gray-200 rounded-md p-2" type="password" placeholder="Password" />
+            <div className="text-red-400 text-sm">{alertMessage}</div>
+            <button className="bg-green-500 text-white p-2 rounded-md" type="submit">
               เข้าสู่ระบบ
             </button>
             <div className="flex space-x-3">
@@ -36,7 +72,7 @@ export function LoginPage() {
                 สมัครสมาชิก
               </a>
             </div>
-          </div>
+          </form>
         </div>
       </main>
     </div>

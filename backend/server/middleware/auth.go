@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"fmt"
 	"nakaliving/backend/domain"
 	"nakaliving/backend/internal/constant"
 
@@ -10,7 +11,8 @@ import (
 
 func NewAuthMiddleware(authUsecase domain.AuthUseCase) HandlerFuncWithError {
 	return func(ctx *gin.Context) error {
-		cookie, _ := ctx.Cookie(constant.SessionCookieName)
+		cookie, err := ctx.Cookie(constant.SessionCookieName)
+		fmt.Println(err)
 		if cookie == "" {
 			ctx.Abort()
 			return errors.New("blah blah blah")

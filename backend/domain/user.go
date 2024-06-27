@@ -21,7 +21,7 @@ type UserRepository interface {
 }
 
 type UserUseCase interface {
-	Create(email string, password string) (*User, error)
+	Create(email string, password string, name string, role string, address string, tel string) (*User, error)
 	Get(id string) (*User, error)
 	GetByEmail(email string) (*User, error)
 	GetBySessionId(id string) (*User, error)

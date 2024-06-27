@@ -7,7 +7,9 @@ import (
 	"nakaliving/backend/server/controller"
 	"nakaliving/backend/server/middleware"
 	"net/http"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 
 	"go.uber.org/zap"
@@ -36,32 +38,37 @@ func New(
 }
 
 func (s *HTTPServer) applyRoutes() http.Handler {
+	s.router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowMethods:     []string{"*"},
+		AllowHeaders:     []string{"*"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
-	// // Initialize controllers
+	// Initialize controllers
 	healthController := controller.NewHealthController()
-	// userController := controller.NewUserController(s.useCases.User)
-	// authController := controller.NewAuthController(s.useCases.Auth, s.useCases.User)
+	userController := controller.NewUserController(s.useCases.User)
+	authController := controller.NewAuthController(s.useCases.Auth, s.useCases.User)
 
-	// // Initialize middlewares
+	// Initialize middlewares
 	c := middleware.ErrorHandler // For alias, c stand for controller
 
-	// authMiddleware := middleware.NewAuthMiddleware(s.useCases.Auth)
+	authMiddleware := middleware.NewAuthMiddleware(s.useCases.Auth)
 
-	// // Apply middlewares
-	// s.router.Use(middleware.Recovery)
-	// s.router.Use(middleware.Logger(*s.platforms.InfluxDB))
+	// Apply middlewares
+	s.router.Use(middleware.Recovery)
 
-	// // Apply routes
+	// Apply routes
 	s.router.GET("/", c(healthController.Index))
-	// s.router.GET("/metrics", c(healthController.Metrics))
-	// s.router.NoRoute(c(healthController.NotFound))
+	s.router.NoRoute(c(healthController.NotFound))
 
-	// s.router.GET("/user/:id", c(authMiddleware), c(userController.GetById))
-	// s.router.POST("/user", c(authMiddleware), c(userController.Create))
+	s.router.GET("/user/:id", c(userController.GetById))
+	s.router.POST("/user", c(userController.Create))
 
-	// s.router.GET("/auth/me", c(authMiddleware), c(authController.Me))
-	// s.router.POST("/auth/signin", c(authController.SignIn))
-	// s.router.POST("/auth/signout", c(authController.SignOut))
+	s.router.GET("/auth/me", c(authMiddleware), c(authController.Me))
+	s.router.POST("/auth/signin", c(authController.SignIn))
+	s.router.POST("/auth/signout", c(authController.SignOut))
 
 	return s.router
 }

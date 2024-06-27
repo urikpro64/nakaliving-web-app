@@ -1,6 +1,5 @@
 import { UserCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-
 export function Navbar() {
   const navItems = [
     { label: "อสังหาริมทรัพย์", url: "/estate" },
@@ -26,7 +25,6 @@ export function Navbar() {
         </div>
         {/* middle */}
         <div className="flex space-x-5">
-          
         </div>
         {/* right */}
         <div className="flex space-x-3 items-center">

@@ -75,12 +75,20 @@ func Connect(cfg *config.ConfigMysql) *Mysql {
 }
 
 func Migrate(gormDB *gorm.DB) error {
+	start := time.Now()
 	err := gormDB.AutoMigrate(
 		&domain.User{},
+		&domain.Session{},
 	)
 	if err != nil {
 		return fmt.Errorf("failed to migrate to database: %w", err)
 	}
+	zap.L().Info(
+		"migrated database",
+		zap.String("label", "platformDatabaseMigration"),
+		zap.String("platform", "mysql"),
+		zap.String("migrationTime", time.Since(start).String()),
+	)
 	return nil
 }
 
