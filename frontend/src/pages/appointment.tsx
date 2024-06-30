@@ -1,10 +1,10 @@
 import { AppointmentCard } from "@/components/appointment-card";
-import { Navbar } from "@/components/navbar";
+
 
 export function AppointmentPage() {
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      <Navbar />
+      
       <main className="w-full flex flex-col">
         <div className="container space-y-5 divide-y p-3 overflow-auto ">
           <div className="flex flex-row justify-between items-center">

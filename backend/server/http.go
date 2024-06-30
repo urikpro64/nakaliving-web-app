@@ -40,7 +40,7 @@ func New(
 func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},
-		AllowMethods:     []string{"GET", "POST"},
+		AllowMethods:     []string{"GET", "POST", "PATCH"},
 		AllowHeaders:     []string{"Content-Type", "Access-Control-Allow-Headers"},
 		AllowCredentials: true,
 		ExposeHeaders:    []string{"Set-Cookie"},
@@ -65,6 +65,7 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.NoRoute(c(healthController.NotFound))
 
 	s.router.GET("/user/:id", c(userController.GetById))
+	s.router.PATCH("/user/:id/changeinfo", c(userController.ChangeInfo))
 	s.router.POST("/user", c(userController.Create))
 
 	s.router.GET("/auth/me", c(authMiddleware), c(authController.Me))

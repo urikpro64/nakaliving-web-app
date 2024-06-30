@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar";
+
 import { Response, ResponseError } from "@/types";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -43,7 +43,7 @@ export function LoginPage() {
   })
   return (
     <div className="relative w-full flex max-h-screen flex-col overflow-hidden">
-      <Navbar />
+      
       <main className="w-full flex">
         <div className="w-1/2">
           <img

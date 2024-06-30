@@ -1,5 +1,5 @@
 import { EstateCard } from "@/components/estate-card";
-import { Navbar } from "@/components/navbar";
+
 import { OwnerSideNavBar } from "@/components/owner-sidenavbar";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export function OwnerEstatePage() {
 
     return (
         <div className="relative w-full h-screen flex max-h-screen flex-col">
-            <Navbar />
+            
             <main className="flex flex-row h-full overflow-hidden">
                 <OwnerSideNavBar />
                 <div className="container space-y-5 p-3 overflow-hidden">

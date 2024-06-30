@@ -55,7 +55,30 @@ func (c *UserController) Create(ctx *gin.Context) error {
 	}
 
 	return response.Success(ctx.Writer, http.StatusCreated, response.Map{
-		"user":    user,
-		"message": "TODO: implement",
+		"user": user,
+	})
+}
+
+func (c *UserController) ChangeInfo(ctx *gin.Context) error {
+	var payload request.ChangeInfoUserPayload
+	id := ctx.Param("id")
+
+	err := request.Bind(ctx.Request, &payload)
+	if err != nil {
+		return err
+	}
+
+	user, err := c.userUseCase.ChangeInfo(
+		id,
+		payload.Name,
+		payload.Address,
+		payload.Tel,
+	)
+	if err != nil {
+		return err
+	}
+
+	return response.Success(ctx.Writer, http.StatusCreated, response.Map{
+		"user": user,
 	})
 }

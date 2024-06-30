@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar";
+
 import { OwnerSideNavBar } from "@/components/owner-sidenavbar";
 import { useParams } from "react-router-dom";
 
@@ -6,7 +6,7 @@ export function OwnerInformationPage() {
     const { userId } = useParams();
     return (
         <div className="relative w-full h-screen flex max-h-screen flex-col ">
-            <Navbar />
+            
             <main className="flex flex-row h-full">
                 <OwnerSideNavBar />
                 <div className="container space-y-5 p-3">

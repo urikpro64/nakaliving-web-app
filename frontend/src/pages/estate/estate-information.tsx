@@ -1,10 +1,10 @@
-import { Navbar } from "@/components/navbar";
+
 import { Link } from "react-router-dom";
 
 export function EstateInformationPage() {
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      <Navbar />
+      
       <main className="w-11/12 mx-auto  p-5">
         <div className="text-2xl font-bold">P001</div>
         <div className="flex gap-5 items-center justify-between">

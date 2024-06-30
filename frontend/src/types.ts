@@ -11,7 +11,7 @@ export interface ResponseError {
 
 export type User = {
     ID: number,
-    address: string | null,
+    address: string,
     email: string,
     name: string,
     role: string,

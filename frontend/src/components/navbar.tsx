@@ -13,15 +13,15 @@ export function Navbar() {
 
   const [user, setUser] = useState<User>();
   useEffect(() => {
-    fetch(`${BASE_URL}/auth/me`, {
-      method: "GET",
-      credentials: "include",
-    }).then(response => response.json())
-      .then(response => setUser(response.data))
-  }, [])
+      fetch(`${BASE_URL}/auth/me`, {
+        method: "GET",
+        credentials: "include",
+      }).then(response => response.json())
+        .then(response => setUser(response.data))
+  })
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="relative flex bg-white shadow-md">
       <div className="flex w-full items-center flex-row p-5 justify-between">
         {/* left */}
         <div className="flex items-center space-x-4">

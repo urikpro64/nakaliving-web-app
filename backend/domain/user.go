@@ -18,6 +18,7 @@ type UserRepository interface {
 	Get(id string) (*User, error)
 	GetByEmail(email string) (*User, error)
 	GetBySessionId(id string) (*User, error)
+	ChangeInfo(id string, name string, address string, tel string) (*User, error)
 }
 
 type UserUseCase interface {
@@ -25,4 +26,5 @@ type UserUseCase interface {
 	Get(id string) (*User, error)
 	GetByEmail(email string) (*User, error)
 	GetBySessionId(id string) (*User, error)
+	ChangeInfo(id string, name string, address string, tel string) (*User, error)
 }

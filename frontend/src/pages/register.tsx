@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -86,7 +86,7 @@ export function RegisterPage() {
 
   return (
     <div className="relative w-full flex max-h-screen flex-col overflow-hidden">
-      <Navbar />
+      
       <main className="w-full flex">
         <div className="w-1/2">
           <img

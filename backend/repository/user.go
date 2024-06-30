@@ -70,3 +70,24 @@ func (r *userRepository) GetByEmail(email string) (*domain.User, error) {
 
 	return &user, nil
 }
+
+func (r *userRepository) ChangeInfo(id string, name string, address string, tel string) (*domain.User, error) {
+	var user domain.User
+	result := r.db.Where("id = ?", id).First(&user)
+
+	if result.Error == gorm.ErrRecordNotFound {
+		return nil, nil
+	} else if result.Error != nil {
+		return nil, fmt.Errorf("cannot query to get user: %w", result.Error)
+	}
+
+	user.Name = name
+	user.Address = address
+	user.Tel = tel
+	result = r.db.Save(&user)
+	if result.Error != nil {
+		return nil, fmt.Errorf("cannot query to update user: %w", result.Error)
+	}
+
+	return &user, nil
+}

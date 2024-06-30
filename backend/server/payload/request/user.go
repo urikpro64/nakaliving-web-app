@@ -8,3 +8,9 @@ type CreateUserPayload struct {
 	Address  string `json:"address"`
 	Tel      string `json:"tel" validate:"required"`
 }
+
+type ChangeInfoUserPayload struct {
+	Name    string `json:"name" validate:"required"`
+	Address string `json:"address" validate:"required"`
+	Tel     string `json:"tel" validate:"required"`
+}

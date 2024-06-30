@@ -1,11 +1,11 @@
-import { Navbar } from "@/components/navbar";
+
 
 export function EstateAppointmentPage() {
   //back to estate page
 
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      <Navbar />
+      
       <main className="container mt-5">
         <div className="gap-5 flex flex-col">
           <div className="flex gap-3">

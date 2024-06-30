@@ -1,11 +1,10 @@
 import { EstateCard } from "@/components/estate-card";
-import { Navbar } from "@/components/navbar";
+
 import { Link } from "react-router-dom";
 
 export function EstatePage() {
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      <Navbar />
       <main className="w-full flex flex-col">
         <div className="container space-y-5 p-3 overflow-auto ">
           <div className="flex flex-row justify-between items-center">
@@ -17,12 +16,23 @@ export function EstatePage() {
           <div className="flex flex-row gap-x-4">
             <div className="flex flex-col w-full gap-2 divide-y-2 overflow-hidden">
               <EstateCard />
-              {/* <EstateCard />
               <EstateCard />
-              <EstateCard /> */}
+              <EstateCard />
+              <EstateCard />
             </div>
             <div className="flex flex-col w-1/3 p-2 text-nowrap gap-y-4">
               <div className="flex flex-col gap-y-2">
+                <div className="font-semibold">ประเภท</div>
+                <div className="flex flex-col items-start px-2">
+                  <div className="flex flex-row gap-x-1 text-gray-600 items-center">
+                    <input type="checkbox" value={"บ้าน"} className="w-4 h-4"></input>
+                    <label>ขาย</label>
+                  </div>
+                  <div className="flex flex-row gap-x-1 text-gray-600 items-center">
+                    <input type="checkbox" value={"คอนโด"} className="w-4 h-4"></input>
+                    <label>ให้เช่า</label>
+                  </div>
+                </div>
                 <div className="font-semibold">ราคา</div>
                 <div className="flex flex-row w-full items-center gap-x-2 text-gray-500 text-sm">
                   <div className="flex flex-col w-full p-2 border-2 rounded-md">

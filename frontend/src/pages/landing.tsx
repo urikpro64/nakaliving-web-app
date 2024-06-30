@@ -1,12 +1,10 @@
-import { Navbar } from "@/components/navbar";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function LandingPage() {
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden">
-      <Navbar />
-      <main className="flex flex-1 flex-row items-center justify-around bg-[url('https://images.unsplash.com/photo-1714317559964-498c611e2c0c?q=80&w=1995&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
+    <div className="relative flex flex-col flex-1 h-screen max-h-screen overflow-hidden">
+      <main className="flex flex-1 items-center justify-around bg-[url('https://images.unsplash.com/photo-1714317559964-498c611e2c0c?q=80&w=1995&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')]">
         <div className="flex flex-col gap-y-2 justify-center items-center text-white p-4 rounded-xl backdrop-opacity-75 backdrop-blur-lg">
           <div className="flex flex-col text-5xl font-semibold space-y-4 items-center">
             <div>ปล่อยให้เรื่องเช่า...ให้เป็นเรื่องง่าย</div>

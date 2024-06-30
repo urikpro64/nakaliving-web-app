@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/navbar";
+
 
 export function EstateInsertPage() {
     return (

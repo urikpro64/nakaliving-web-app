@@ -82,3 +82,12 @@ func (u *userUsecase) GetBySessionId(sessionId string) (*domain.User, error) {
 	}
 	return user, nil
 }
+
+func (u *userUsecase) ChangeInfo(id string, name string, address string, tel string) (*domain.User, error) {
+	user, err := u.userRepository.ChangeInfo(id, name, address, tel)
+	if err != nil {
+		return nil, errs.WrapCode(err, errs.ErrGetUser, "cannot get user by id %s", id)
+	}
+
+	return user, nil
+}

@@ -1,11 +1,11 @@
 import { AgentSideNavBar } from "@/components/agent-sidenavbar";
-import { Navbar } from "@/components/navbar";
+
 
 export function AgentReportPage() {
     const date = new Date();
     return (
         <div className="relative w-full h-screen flex max-h-screen flex-col ">
-            <Navbar />
+            
             <main className="flex flex-row h-full">
                 <AgentSideNavBar />
                 <div className="container space-y-5 divide-y p-3 overflow-auto ">
