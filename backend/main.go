@@ -52,14 +52,16 @@ func initPlatforms(cfg *config.Config) *platform.Platforms {
 }
 
 func initUseCases(cfg *config.Config, repositories *domain.Repositories) *domain.UseCases {
-	user := usecase.NewUserUsecase(repositories.User)
+	user := usecase.NewUserUsecase(cfg, repositories.User)
 	session := usecase.NewSessionUseCase(cfg, repositories.Session)
 	auth := usecase.NewAuthUseCase(cfg, session, user)
+	estate := usecase.NewEstateUsecase(repositories.Estate)
 
 	return &domain.UseCases{
 		Auth:    auth,
 		Session: session,
 		User:    user,
+		Estate:  estate,
 	}
 }
 
@@ -67,5 +69,6 @@ func initRepository(platforms *platform.Platforms) *domain.Repositories {
 	return &domain.Repositories{
 		User:    repository.NewUserRepository(platforms.Mysql),
 		Session: repository.NewSessionRepository(platforms.Mysql),
+		Estate:  repository.NewEstateRepository(platforms.Mysql),
 	}
 }

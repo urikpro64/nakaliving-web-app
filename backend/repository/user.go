@@ -71,7 +71,7 @@ func (r *userRepository) GetByEmail(email string) (*domain.User, error) {
 	return &user, nil
 }
 
-func (r *userRepository) ChangeInfo(id string, name string, address string, tel string) (*domain.User, error) {
+func (r *userRepository) ChangeInfo(id uint, name string, address string, tel string) (*domain.User, error) {
 	var user domain.User
 	result := r.db.Where("id = ?", id).First(&user)
 

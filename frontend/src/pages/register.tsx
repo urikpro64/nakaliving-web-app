@@ -74,16 +74,6 @@ export function RegisterPage() {
     },
   ];
 
-  // const submitForm = (e:HTMLFormElement) => {
-  //   const password = e.target.Passowrd;
-  //   const confirmPassword = e.get("ConfirmPassword");
-
-  //   if(password === confirmPassword) {
-  //     setAlertMessage("Your confirm password is not match with password.")
-  //     return
-  //   }
-  // }
-
   return (
     <div className="relative w-full flex max-h-screen flex-col overflow-hidden">
       

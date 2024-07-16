@@ -11,3 +11,5 @@ auth:
   session:
     secret: secret
     maxAge: 1296000 # 15 days in second unit
+  admin:
+    secret: thisisadminsecret

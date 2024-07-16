@@ -5,7 +5,6 @@ export function EstateAppointmentPage() {
 
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      
       <main className="container mt-5">
         <div className="gap-5 flex flex-col">
           <div className="flex gap-3">

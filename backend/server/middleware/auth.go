@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewAuthMiddleware(authUsecase domain.AuthUseCase) HandlerFuncWithError {
+func NewAuthMiddleware(authUsecase domain.AuthUsecase) HandlerFuncWithError {
 	return func(ctx *gin.Context) error {
 		cookie, _ := ctx.Cookie(constant.SessionCookieName)
 		if cookie == "" {

@@ -7,7 +7,6 @@ export function OwnerEstatePage() {
 
     return (
         <div className="relative w-full h-screen flex max-h-screen flex-col">
-            
             <main className="flex flex-row h-full overflow-hidden">
                 <OwnerSideNavBar />
                 <div className="container space-y-5 p-3 overflow-hidden">

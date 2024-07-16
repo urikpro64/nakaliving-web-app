@@ -22,7 +22,7 @@ type sessionUseCase struct {
 	sessionRepository domain.SessionRepository
 }
 
-func NewSessionUseCase(cfg *config.Config, sessionRepository domain.SessionRepository) domain.SessionUseCase {
+func NewSessionUseCase(cfg *config.Config, sessionRepository domain.SessionRepository) domain.SessionUsecase {
 	return &sessionUseCase{cfg: cfg, sessionRepository: sessionRepository}
 }
 

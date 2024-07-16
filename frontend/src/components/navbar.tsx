@@ -53,7 +53,7 @@ export function Navbar() {
               </Link>
             </div>
             :
-            <Link to={"/user"} className="flex flex-row gap-x-2">
+            <Link to={`/${user.role}`} className="flex flex-row gap-x-2">
               <div className="font-semibold">{user.name}</div>
               <UserCircle></UserCircle>
             </Link>

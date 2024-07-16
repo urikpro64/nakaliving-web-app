@@ -1,8 +1,19 @@
 import { EstateCard } from "@/components/estate-card";
-
+import { Estate } from "@/types";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const BASE_URL = import.meta.env.VITE_API_URL
+
 export function EstatePage() {
+  const [estates, setEstates] = useState<Estate[]>();
+  useEffect(() => {
+    fetch(`${BASE_URL}/estate`, {
+      method: "GET",
+    }).then(response => response.json())
+      .then(response => setEstates(response.data.estates));
+    console.log(estates)
+  }, [])
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
       <main className="w-full flex flex-col">
@@ -15,10 +26,9 @@ export function EstatePage() {
           </div>
           <div className="flex flex-row gap-x-4">
             <div className="flex flex-col w-full gap-2 divide-y-2 overflow-hidden">
-              <EstateCard />
-              <EstateCard />
-              <EstateCard />
-              <EstateCard />
+              {estates && estates.map((estate) => (
+                <EstateCard key={estate.ID} estate={estate} />
+              ))}
             </div>
             <div className="flex flex-col w-1/3 p-2 text-nowrap gap-y-4">
               <div className="flex flex-col gap-y-2">

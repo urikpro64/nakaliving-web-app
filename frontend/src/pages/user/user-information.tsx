@@ -42,7 +42,7 @@ export function UserInformationPage() {
             tel: user.tel
         }
 
-        const response: Response = await fetch(`${BASE_URL}/user/${user?.ID}/changeinfo`, {
+        const response: Response = await fetch(`${BASE_URL}/user/changeinfo`, {
             method: "PATCH",
             credentials: "include",
             headers: {

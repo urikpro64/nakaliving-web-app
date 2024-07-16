@@ -1,12 +1,14 @@
 package domain
 
 type UseCases struct {
-	Auth    AuthUseCase
-	User    UserUseCase
-	Session SessionUseCase
+	Auth    AuthUsecase
+	User    UserUsecase
+	Session SessionUsecase
+	Estate  EstateUsecase
 }
 
 type Repositories struct {
 	User    UserRepository
 	Session SessionRepository
+	Estate  EstateRepository
 }

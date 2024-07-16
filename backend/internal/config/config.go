@@ -33,11 +33,16 @@ type ConfigHTTP struct {
 
 type ConfigAuth struct {
 	Session ConfigAuthSession `yaml:"session"`
+	Admin   ConfigAuthAdmin   `yaml:"admin"`
 }
 
 type ConfigAuthSession struct {
 	Secret string `yaml:"secret" `
 	MaxAge int    `yaml:"maxAge" validate:"number,required"`
+}
+
+type ConfigAuthAdmin struct {
+	Secret string `yaml:"secret"`
 }
 
 func Load(path string) (*Config, error) {

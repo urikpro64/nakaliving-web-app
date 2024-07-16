@@ -51,6 +51,7 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	healthController := controller.NewHealthController()
 	userController := controller.NewUserController(s.useCases.User)
 	authController := controller.NewAuthController(s.useCases.Auth, s.useCases.User)
+	estateController := controller.NewEstateController(s.useCases.Estate)
 
 	// Initialize middlewares
 	c := middleware.ErrorHandler // For alias, c stand for controller
@@ -60,18 +61,23 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	// Apply middlewares
 	s.router.Use(middleware.Recovery)
 
+	// Apply static path
+	s.router.Static("/images", "./other/images")
+
 	// Apply routes
 	s.router.GET("/", c(healthController.Index))
 	s.router.NoRoute(c(healthController.NotFound))
 
 	s.router.GET("/user/:id", c(userController.GetById))
-	s.router.PATCH("/user/:id/changeinfo", c(userController.ChangeInfo))
+	s.router.PATCH("/user/changeinfo", c(authMiddleware), c(userController.ChangeInfo))
 	s.router.POST("/user", c(userController.Create))
 
 	s.router.GET("/auth/me", c(authMiddleware), c(authController.Me))
 	s.router.POST("/auth/signin", c(authController.SignIn))
 	s.router.POST("/auth/signout", c(authController.SignOut))
 
+	s.router.GET("/estate", c(estateController.GetAll))
+	s.router.POST("/estate", c(authMiddleware), c(estateController.Create))
 	return s.router
 }
 

@@ -28,4 +28,11 @@ const (
 	ErrGetUser
 	ErrUserNotFound
 	ErrDupEmail
+	ErrInvalidAdminSecret
+)
+
+const (
+	ErrCreateEstate Code = iota + 3000
+	ErrGetEstate
+	ErrChangeInfo
 )

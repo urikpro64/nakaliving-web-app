@@ -13,13 +13,13 @@ import (
 )
 
 type AuthController struct {
-	authUseCase domain.AuthUseCase
-	userUseCase domain.UserUseCase
+	authUseCase domain.AuthUsecase
+	userUseCase domain.UserUsecase
 }
 
 func NewAuthController(
-	authUseCase domain.AuthUseCase,
-	userUseCase domain.UserUseCase,
+	authUseCase domain.AuthUsecase,
+	userUseCase domain.UserUsecase,
 ) *AuthController {
 	return &AuthController{
 		authUseCase: authUseCase,

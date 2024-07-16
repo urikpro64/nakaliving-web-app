@@ -21,10 +21,9 @@ type SessionRepository interface {
 	DeleteDuplicates(userId uint, ipAddress string, userAgent string) error
 }
 
-type SessionUseCase interface {
+type SessionUsecase interface {
 	Sign(id string) string
 	Unsign(session string) (string, error)
-
 	Create(userId uint, ipAddress string, userAgent string) (*Cookie, error)
 	Get(header string) (*Session, error)
 	Destroy(id string) (*Cookie, error)

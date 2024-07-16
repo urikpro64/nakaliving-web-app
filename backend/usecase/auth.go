@@ -11,11 +11,11 @@ import (
 type authUseCase struct {
 	cfg *config.Config
 
-	sessionUseCase domain.SessionUseCase
-	userUseCase    domain.UserUseCase
+	sessionUseCase domain.SessionUsecase
+	userUseCase    domain.UserUsecase
 }
 
-func NewAuthUseCase(cfg *config.Config, sessionUseCase domain.SessionUseCase, userUseCase domain.UserUseCase) domain.AuthUseCase {
+func NewAuthUseCase(cfg *config.Config, sessionUseCase domain.SessionUsecase, userUseCase domain.UserUsecase) domain.AuthUsecase {
 	return &authUseCase{cfg: cfg, sessionUseCase: sessionUseCase, userUseCase: userUseCase}
 }
 

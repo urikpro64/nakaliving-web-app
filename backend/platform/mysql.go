@@ -79,6 +79,8 @@ func Migrate(gormDB *gorm.DB) error {
 	err := gormDB.AutoMigrate(
 		&domain.User{},
 		&domain.Session{},
+		&domain.Estate{},
+		&domain.EstateImage{},
 	)
 	if err != nil {
 		return fmt.Errorf("failed to migrate to database: %w", err)
