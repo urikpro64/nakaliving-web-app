@@ -27,9 +27,12 @@ export function UserInformationPage() {
 
     if (!user) {
         return (
-            <div className="relative w-full h-screen flex max-h-screen flex-col ">
-                <main className="flex flex-row h-full items-center justify-center">
-                    <RefreshCcw className="animate-spin"></RefreshCcw>
+            <div className="relative flex flex-col w-full h-screen max-h-screen">
+                <main className="flex flex-row h-full items-center">
+                    <UserSideNavBar />
+                    <div className="container flex justify-center">
+                        <RefreshCcw className="animate-spin"></RefreshCcw>
+                    </div>
                 </main>
             </div>
         )

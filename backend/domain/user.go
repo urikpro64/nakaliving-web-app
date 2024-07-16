@@ -23,6 +23,7 @@ type UserRepository interface {
 
 type UserUsecase interface {
 	Create(email string, password string, name string, role string, address string, tel string) (*User, error)
+	CreateAdmin(email string, password string, name string, role string, address string, tel string, secret string) (*User, error)
 	Get(id string) (*User, error)
 	GetByEmail(email string) (*User, error)
 	GetBySessionId(id string) (*User, error)

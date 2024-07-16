@@ -60,7 +60,7 @@ func (u *userUsecase) Create(
 		Email:    email,
 		Password: string(hashedPassword),
 		Name:     name,
-		Role:     "user",
+		Role:     role,
 		Address:  address,
 		Tel:      tel,
 	}
@@ -81,45 +81,21 @@ func (u *userUsecase) CreateAdmin(
 	secret string,
 ) (*domain.User, error) {
 	if secret != u.cfg.Auth.Admin.Secret {
-		return nil, errs.New(errs.ErrInvalidAdminSecret,
-			"cannot create admin user cause your secret is invalid",
-		)
+		return nil, errs.New(errs.ErrInvalidAdminSecret, "cannot create admin user cause secret is invalid")
 	}
 
-	if _, err := mail.ParseAddress(email); err != nil {
-		return nil, errs.WrapCode(
-			err,
-			errs.ErrInvalidEmail,
-			"cannot create user with invalid email %s", email,
-		)
-	}
-
-	user, err := u.GetByEmail(email)
+	user, err := u.Create(
+		email,
+		password,
+		name,
+		role,
+		address,
+		tel,
+	)
 	if err != nil {
-		return nil, errs.Wrap(err, "cannot create user with email %s", email)
-	} else if user != nil {
-		return nil, errs.New(errs.ErrDupEmail,
-			"cannot create user due to email %s being already registered", email,
-		)
+		return nil, err
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 10)
-	if err != nil {
-		return nil, errs.WrapCode(err, errs.ErrCreateUser, "cannot create user with invalid password")
-	}
-
-	user = &domain.User{
-		Email:    email,
-		Password: string(hashedPassword),
-		Name:     name,
-		Role:     "admin",
-		Address:  address,
-		Tel:      tel,
-	}
-
-	if err = u.userRepository.Create(user); err != nil {
-		return nil, errs.WrapCode(err, errs.ErrCreateUser, "cannot create user with email %s", email)
-	}
 	return user, nil
 }
 

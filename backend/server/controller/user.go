@@ -37,20 +37,32 @@ func (c *UserController) GetById(ctx *gin.Context) error {
 
 func (c *UserController) Create(ctx *gin.Context) error {
 	var payload request.CreateUserPayload
-
+	var user *domain.User
 	err := request.Bind(ctx.Request, &payload)
 	if err != nil {
 		return err
 	}
+	if payload.Role == "owner" {
+		user, err = c.userUseCase.CreateAdmin(
+			payload.Email,
+			payload.Password,
+			payload.Name,
+			payload.Role,
+			payload.Address,
+			payload.Tel,
+			payload.Secret,
+		)
+	} else {
+		user, err = c.userUseCase.Create(
+			payload.Email,
+			payload.Password,
+			payload.Name,
+			payload.Role,
+			payload.Address,
+			payload.Tel,
+		)
+	}
 
-	user, err := c.userUseCase.Create(
-		payload.Email,
-		payload.Password,
-		payload.Name,
-		payload.Role,
-		payload.Address,
-		payload.Tel,
-	)
 	if err != nil {
 		return err
 	}

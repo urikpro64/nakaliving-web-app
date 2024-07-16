@@ -11,7 +11,6 @@ import { EstateInformationPage } from "@/pages/estate/estate-information";
 import { EstateInsertPage } from "./pages/estate/estate-insert";
 import { LandingPage } from "@/pages/landing";
 import { LoginPage } from "@/pages/login";
-import { RegisterPage } from "@/pages/register";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserInformationPage } from "./pages/user/user-information";
 import { UserAppointmentPage } from "./pages/user/user-appointment";
@@ -20,6 +19,8 @@ import { OwnerEstatePage } from "./pages/owner/owner-estate";
 import { OwnerReportPage } from "./pages/owner/owner-report";
 import { OwnerAppointmentPage } from "./pages/owner/owner-appointment";
 import { Navbar } from "./components/navbar";
+import { UserRegisterPage } from "./pages/user/user-register";
+import { OwnerRegisterPage } from "./pages/owner/owner-register";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -30,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register" element={<UserRegisterPage />} />
           <Route path="/estate" element={<EstatePage />} />
           <Route path="/estate/:estateId" element={<EstateInformationPage />} />
           <Route path="/estate/insert" element={<EstateInsertPage />} />
@@ -39,6 +40,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/user" element={<UserInformationPage />} />
           <Route path="/user/appointment" element={<UserAppointmentPage />} />
           <Route path="/owner" element={<OwnerInformationPage />} />
+          <Route path="/owner/register" element={<OwnerRegisterPage/>} />
           <Route path="/owner/estate" element={<OwnerEstatePage />} />
           <Route path="/owner/report" element={<OwnerReportPage />} />
           <Route path="/owner/appointment" element={<OwnerAppointmentPage />} />

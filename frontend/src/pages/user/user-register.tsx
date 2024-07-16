@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_API_URL
 
 type FormData = {
+  Role: string
   Name: string
   Address: string
   Tel: string
@@ -14,7 +15,7 @@ type FormData = {
   ConfirmPassword: string
 }
 
-export function RegisterPage() {
+export function UserRegisterPage() {
   const navigate = useNavigate();
   const [alertMessage, setAlertMessage] = useState<string>("")
   const {
@@ -28,6 +29,8 @@ export function RegisterPage() {
       setAlertMessage("Your confirm password is not match");
       return
     }
+    data.Role = "user";
+    console.log(data);
     const result = await fetch(`${BASE_URL}/user`, {
       method: "POST",
       headers: {
