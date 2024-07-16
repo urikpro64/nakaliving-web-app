@@ -18,7 +18,8 @@ type Estate struct {
 	Province    string        `json:"province" gorm:"not null"`
 	Insurance   string        `json:"insurance" gorm:"not null"`
 	Owner       string        `json:"onwer" gorm:"not null"`
-	Images      []EstateImage `json:"images" gorm:""`
+	Images      []EstateImage `json:"images" gorm:"constraint:OnDelete:CASCADE;"`
+	Visible     bool          `json:"visible" gorm:"default:true"`
 }
 
 type EstateImage struct {
@@ -31,6 +32,8 @@ type EstateRepository interface {
 	Create(estate *Estate) error
 	Get(id string) (*Estate, error)
 	GetAll() ([]Estate, error)
+	GetAllVisible() ([]Estate, error)
+	ChangeVisible(id string) error
 	ChangeInfo(
 		id uint,
 		name string,
@@ -68,6 +71,8 @@ type EstateUsecase interface {
 	) (*Estate, error)
 	Get(id string) (*Estate, error)
 	GetAll() ([]Estate, error)
+	GetAllVisible() ([]Estate, error)
+	ChangeVisible(id string) error
 	ChangeInfo(
 		id uint,
 		name string,

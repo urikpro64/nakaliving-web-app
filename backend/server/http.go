@@ -77,6 +77,9 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.POST("/auth/signout", c(authController.SignOut))
 
 	s.router.GET("/estate", c(estateController.GetAll))
+	s.router.GET("/estate/:id", c(estateController.GetById))
+	s.router.GET("/estate/visible", c(estateController.GetAllVisible))
+	s.router.PATCH("/estate/:id/visible", c(estateController.ChangeVisible))
 	s.router.POST("/estate", c(authMiddleware), c(estateController.Create))
 	return s.router
 }

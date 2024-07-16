@@ -38,6 +38,7 @@ export type Estate = {
     insurance: string,
     owner: string,
     images: EstateImage[] | null
+    visible: boolean
 }
 
 export type EstateImage = {

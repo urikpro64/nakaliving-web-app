@@ -93,6 +93,27 @@ func (c *EstateController) GetAll(ctx *gin.Context) error {
 	})
 }
 
+func (c *EstateController) GetAllVisible(ctx *gin.Context) error {
+	estates, err := c.estateUseCase.GetAllVisible()
+	if err != nil {
+		return err
+	}
+
+	return response.Success(ctx.Writer, http.StatusOK, response.Map{
+		"estates": estates,
+	})
+}
+
+func (c *EstateController) ChangeVisible(ctx *gin.Context) error {
+	id := ctx.Param("id")
+
+	err := c.estateUseCase.ChangeVisible(id)
+	if err != nil {
+		return err
+	}
+	return response.Success(ctx.Writer, http.StatusOK, response.Map{})
+}
+
 func (c *EstateController) ChangeInfo(ctx *gin.Context) error {
 	var payload request.ChangeInfoUserPayload
 	user := middleware.GetUserFromCtx(ctx)

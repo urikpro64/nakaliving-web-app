@@ -61,6 +61,29 @@ func (r *estateRepository) GetAll() ([]domain.Estate, error) {
 	return estates, nil
 }
 
+func (r *estateRepository) GetAllVisible() ([]domain.Estate, error) {
+	var estates []domain.Estate
+	result := r.db.Preload("Images").Where("visible = ?", true).Find(&estates)
+	if result.Error != nil {
+		return nil, fmt.Errorf("cannot query to get estate: %w", result.Error)
+	}
+	return estates, nil
+}
+
+func (r *estateRepository) ChangeVisible(id string) error {
+	var estate domain.Estate
+	result := r.db.Where("id = ?", id).First(&estate)
+
+	if result.Error != nil {
+		return fmt.Errorf("cannot query to get estate: %w", result.Error)
+	}
+
+	estate.Visible = !estate.Visible
+	r.db.Save(&estate)
+
+	return nil
+}
+
 func (r *estateRepository) ChangeInfo(
 	id uint,
 	name string,

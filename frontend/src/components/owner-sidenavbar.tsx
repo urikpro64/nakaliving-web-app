@@ -1,4 +1,4 @@
-import { BookUser, Building2, Gavel, Home, LogOutIcon, ScrollText, User, Users } from "lucide-react"
+import { BookUser, Building2, Home, LogOutIcon, ScrollText, User, Users } from "lucide-react"
 import { Link } from "react-router-dom"
 
 export function OwnerSideNavBar() {
@@ -25,12 +25,6 @@ export function OwnerSideNavBar() {
                         <Building2 />
                         <Link to="/owner/estate">
                             <div>อสังหาริมทรัพย์</div>
-                        </Link>
-                    </div>
-                    <div className="flex flex-row w-full gap-x-2 items-center">
-                        <Gavel />
-                        <Link to="">
-                            <div>ประกาศขาย</div>
                         </Link>
                     </div>
                     <div className="flex flex-row w-full gap-x-2 items-center">

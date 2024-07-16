@@ -16,7 +16,7 @@ export function OwnerEstatePage() {
         }).then(response => response.json())
             .then(response => setEstates(response.data.estates));
         console.log(estates)
-    }, [estates])
+    }, [])
 
     if (!estates) {
         return (
@@ -29,6 +29,13 @@ export function OwnerEstatePage() {
                 </main>
             </div>
         )
+    }
+
+    const onChangeVisible = async (id: number) => {
+        fetch(`${BASE_URL}/estate/${id}/visible`, {
+            method: "PATCH",
+        }).then(response => response.json())
+            .then(response => console.log(response));
     }
 
     return (
@@ -44,7 +51,14 @@ export function OwnerEstatePage() {
                     </div>
                     <div className="flex flex-col w-full h-full gap-2 divide-y-2 overflow-auto">
                         {estates && estates.map((estate) => (
-                            <EstateCard key={estate.ID} estate={estate} />
+                            <div key={estate.ID} className="flex flex-row space-x-2 items-center">
+                                <EstateCard estate={estate} />
+                                <label className="inline-flex w-fit h-fit items-center cursor-pointer">
+                                    <input type="checkbox" value="" className="hidden peer" defaultChecked={estate.visible} onChange={() => onChangeVisible(estate.ID)} />
+                                    <div className="relative w-11 h-6 bg-gray-200 rounded-full dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                </label>
+                                <button className="p-2 rounded-md bg-red-500 text-white shadow-md">ลบ</button>
+                            </div>
                         ))}
                     </div>
                 </div>

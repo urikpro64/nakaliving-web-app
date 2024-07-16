@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function EstateInformationPage() {
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      <main className="w-11/12 mx-auto  p-5">
+      <main className="container p-2">
         <div className="text-2xl font-bold">P001</div>
         <div className="flex gap-5 items-center justify-between">
           {/* Left */}

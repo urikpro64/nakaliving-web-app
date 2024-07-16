@@ -62,9 +62,25 @@ func (u *estateUsecase) Get(id string) (*domain.Estate, error) {
 func (u *estateUsecase) GetAll() ([]domain.Estate, error) {
 	estates, err := u.estateRepository.GetAll()
 	if err != nil {
-		return nil, errs.WrapCode(err, errs.ErrGetUser, "cannot get all estate")
+		return nil, errs.WrapCode(err, errs.ErrGetEstate, "cannot get all estate")
 	}
 	return estates, nil
+}
+
+func (u *estateUsecase) GetAllVisible() ([]domain.Estate, error) {
+	estates, err := u.estateRepository.GetAllVisible()
+	if err != nil {
+		return nil, errs.WrapCode(err, errs.ErrGetEstate, "cannot get all visible estate")
+	}
+	return estates, nil
+}
+
+func (u *estateUsecase) ChangeVisible(id string) error {
+	err := u.estateRepository.ChangeVisible(id)
+	if err != nil {
+		return errs.WrapCode(err, errs.ErrChangeInfo, "cannot change visible of estate")
+	}
+	return nil
 }
 
 func (u *estateUsecase) ChangeInfo(
