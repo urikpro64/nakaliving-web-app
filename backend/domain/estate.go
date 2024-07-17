@@ -51,6 +51,7 @@ type EstateRepository interface {
 		owner string,
 	) (*Estate, error)
 	SaveImage(id string, filepath string) (*Estate, error)
+	Delete(id string) error
 }
 
 type EstateUsecase interface {
@@ -90,4 +91,5 @@ type EstateUsecase interface {
 		owner string,
 	) (*Estate, error)
 	SaveImage(id string, filename string) (*Estate, error)
+	Delete(id string) error
 }

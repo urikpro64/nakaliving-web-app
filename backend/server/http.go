@@ -40,7 +40,7 @@ func New(
 func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},
-		AllowMethods:     []string{"GET", "POST", "PATCH"},
+		AllowMethods:     []string{"GET", "POST", "PATCH", "DELETE"},
 		AllowHeaders:     []string{"Content-Type", "Access-Control-Allow-Headers"},
 		AllowCredentials: true,
 		ExposeHeaders:    []string{"Set-Cookie"},
@@ -79,6 +79,7 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 
 	s.router.GET("/estate", c(estateController.GetAll))
 	s.router.GET("/estate/:id", c(estateController.GetById))
+	s.router.DELETE("/estate/:id", c(authMiddleware), c(estateController.Delete))
 	s.router.GET("/estate/visible", c(estateController.GetAllVisible))
 	s.router.PATCH("/estate/:id/visible", c(estateController.ChangeVisible))
 	s.router.POST("/estate", c(authMiddleware), c(estateController.Create))

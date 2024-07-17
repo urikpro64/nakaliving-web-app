@@ -130,3 +130,11 @@ func (u *estateUsecase) SaveImage(id string, filename string) (*domain.Estate, e
 	}
 	return estate, nil
 }
+
+func (u *estateUsecase) Delete(id string) error {
+	err := u.estateRepository.Delete(id)
+	if err != nil {
+		return errs.WrapCode(err, errs.ErrDeleteEstate, "cannot delete estate by id %s", id)
+	}
+	return nil
+}

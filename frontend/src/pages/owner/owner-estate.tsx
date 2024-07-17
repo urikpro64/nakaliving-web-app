@@ -1,7 +1,7 @@
 import { EstateCard } from "@/components/estate-card";
 
 import { OwnerSideNavBar } from "@/components/owner-sidenavbar";
-import { Estate } from "@/types";
+import { Estate, Response } from "@/types";
 import { RefreshCcw } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -10,13 +10,14 @@ const BASE_URL = import.meta.env.VITE_API_URL
 
 export function OwnerEstatePage() {
     const [estates, setEstates] = useState<Estate[]>();
+    const [actionReload, setActionReload] = useState<boolean>(false);
     useEffect(() => {
         fetch(`${BASE_URL}/estate`, {
             method: "GET",
         }).then(response => response.json())
             .then(response => setEstates(response.data.estates));
-        console.log(estates)
-    }, [])
+        setActionReload(false);
+    }, [actionReload])
 
     if (!estates) {
         return (
@@ -32,10 +33,20 @@ export function OwnerEstatePage() {
     }
 
     const onChangeVisible = async (id: number) => {
-        fetch(`${BASE_URL}/estate/${id}/visible`, {
+        await fetch(`${BASE_URL}/estate/${id}/visible`, {
             method: "PATCH",
         }).then(response => response.json())
             .then(response => console.log(response));
+    }
+
+    const onDelete = async (id: number) => {
+        const response:Response = await fetch(`${BASE_URL}/estate/${id}`, {
+            method: "DELETE",
+            credentials: "include"
+        }).then(response => response.json())
+        if (response.success) {
+            setActionReload(true);
+        }
     }
 
     return (
@@ -57,7 +68,7 @@ export function OwnerEstatePage() {
                                     <input type="checkbox" value="" className="hidden peer" defaultChecked={estate.visible} onChange={() => onChangeVisible(estate.ID)} />
                                     <div className="relative w-11 h-6 bg-gray-200 rounded-full dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                 </label>
-                                <button className="p-2 rounded-md bg-red-500 text-white shadow-md">ลบ</button>
+                                <button type="button" className="p-2 rounded-md bg-red-500 text-white shadow-md" onClick={() => onDelete(estate.ID)}>ลบ</button>
                             </div>
                         ))}
                     </div>

@@ -35,6 +35,7 @@ const (
 	ErrCreateEstate Code = iota + 3000
 	ErrGetEstate
 	ErrChangeEstateInfo
+	ErrDeleteEstate
 )
 
 const (

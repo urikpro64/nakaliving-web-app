@@ -130,3 +130,12 @@ func (r *estateRepository) ChangeInfo(
 
 	return &estate, nil
 }
+
+func (r *estateRepository) Delete(id string) error {
+	result := r.db.Delete(&domain.Estate{}, id)
+	if result.Error != nil {
+		return fmt.Errorf("cannot query to delete estate: %w", result.Error)
+	}
+
+	return nil
+}
