@@ -52,6 +52,7 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	userController := controller.NewUserController(s.useCases.User)
 	authController := controller.NewAuthController(s.useCases.Auth, s.useCases.User)
 	estateController := controller.NewEstateController(s.useCases.Estate)
+	// operationController := controller.NewOperationController(s.useCases.Operation)
 
 	// Initialize middlewares
 	c := middleware.ErrorHandler // For alias, c stand for controller

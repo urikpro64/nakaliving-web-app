@@ -34,5 +34,11 @@ const (
 const (
 	ErrCreateEstate Code = iota + 3000
 	ErrGetEstate
-	ErrChangeInfo
+	ErrChangeEstateInfo
+)
+
+const (
+	ErrCreateOperation Code = iota + 4000
+	ErrGetOperation
+	ErrChangeOperationInfo
 )

@@ -56,19 +56,22 @@ func initUseCases(cfg *config.Config, repositories *domain.Repositories) *domain
 	session := usecase.NewSessionUseCase(cfg, repositories.Session)
 	auth := usecase.NewAuthUseCase(cfg, session, user)
 	estate := usecase.NewEstateUsecase(repositories.Estate)
+	operation := usecase.NewOperationUsecase(repositories.Operation, repositories.User, repositories.Estate)
 
 	return &domain.UseCases{
-		Auth:    auth,
-		Session: session,
-		User:    user,
-		Estate:  estate,
+		Auth:      auth,
+		Session:   session,
+		User:      user,
+		Estate:    estate,
+		Operation: operation,
 	}
 }
 
 func initRepository(platforms *platform.Platforms) *domain.Repositories {
 	return &domain.Repositories{
-		User:    repository.NewUserRepository(platforms.Mysql),
-		Session: repository.NewSessionRepository(platforms.Mysql),
-		Estate:  repository.NewEstateRepository(platforms.Mysql),
+		User:      repository.NewUserRepository(platforms.Mysql),
+		Session:   repository.NewSessionRepository(platforms.Mysql),
+		Estate:    repository.NewEstateRepository(platforms.Mysql),
+		Operation: repository.NewOperationRepository(platforms.Mysql),
 	}
 }

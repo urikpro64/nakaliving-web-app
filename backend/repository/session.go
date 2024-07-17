@@ -19,7 +19,7 @@ func NewSessionRepository(db *platform.Mysql) domain.SessionRepository {
 func (r *sessionRepository) Create(session *domain.Session) error {
 	result := r.db.Create(&session)
 	if result.Error != nil {
-		return fmt.Errorf("cannot query to create user: %w", result.Error)
+		return fmt.Errorf("cannot query to create session: %w", result.Error)
 	}
 	return nil
 }

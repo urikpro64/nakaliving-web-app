@@ -54,7 +54,7 @@ func (u *estateUsecase) Create(
 func (u *estateUsecase) Get(id string) (*domain.Estate, error) {
 	estate, err := u.estateRepository.Get(id)
 	if err != nil {
-		return nil, errs.WrapCode(err, errs.ErrGetUser, "cannot get estate by id %s", id)
+		return nil, errs.WrapCode(err, errs.ErrGetEstate, "cannot get estate by id %s", id)
 	}
 	return estate, nil
 }
@@ -78,7 +78,7 @@ func (u *estateUsecase) GetAllVisible() ([]domain.Estate, error) {
 func (u *estateUsecase) ChangeVisible(id string) error {
 	err := u.estateRepository.ChangeVisible(id)
 	if err != nil {
-		return errs.WrapCode(err, errs.ErrChangeInfo, "cannot change visible of estate")
+		return errs.WrapCode(err, errs.ErrChangeEstateInfo, "cannot change visible of estate")
 	}
 	return nil
 }
@@ -116,7 +116,7 @@ func (u *estateUsecase) ChangeInfo(
 		owner,
 	)
 	if err != nil {
-		return nil, errs.WrapCode(err, errs.ErrGetUser, "cannot get estate by id %s", id)
+		return nil, errs.WrapCode(err, errs.ErrChangeEstateInfo, "cannot get estate by id %s", id)
 	}
 
 	return estate, nil
@@ -126,7 +126,7 @@ func (u *estateUsecase) SaveImage(id string, filename string) (*domain.Estate, e
 	urlPath := fmt.Sprintf("images/%s/%s", id, filename)
 	estate, err := u.estateRepository.SaveImage(id, urlPath)
 	if err != nil {
-		return nil, errs.WrapCode(err, errs.ErrGetUser, "cannot save estate image by id %s", id)
+		return nil, errs.WrapCode(err, errs.ErrChangeEstateInfo, "cannot save estate image by id %s", id)
 	}
 	return estate, nil
 }
