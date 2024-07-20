@@ -16,6 +16,7 @@ type User struct {
 type UserRepository interface {
 	Create(user *User) error
 	Get(id string) (*User, error)
+	GetByRole(role string) ([]User, error)
 	GetByEmail(email string) (*User, error)
 	GetBySessionId(id string) (*User, error)
 	ChangeInfo(id uint, name string, address string, tel string) (*User, error)
@@ -25,6 +26,7 @@ type UserUsecase interface {
 	Create(email string, password string, name string, role string, address string, tel string) (*User, error)
 	CreateAdmin(email string, password string, name string, role string, address string, tel string, secret string) (*User, error)
 	Get(id string) (*User, error)
+	GetByRole(role string) ([]User, error)
 	GetByEmail(email string) (*User, error)
 	GetBySessionId(id string) (*User, error)
 	ChangeInfo(id uint, name string, address string, tel string) (*User, error)

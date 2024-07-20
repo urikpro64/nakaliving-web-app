@@ -70,6 +70,7 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.NoRoute(c(healthController.NotFound))
 
 	s.router.GET("/user/:id", c(userController.GetById))
+	s.router.GET("/user/role/:role", c(authMiddleware), c(userController.GetByRole))
 	s.router.PATCH("/user/changeinfo", c(authMiddleware), c(userController.ChangeInfo))
 	s.router.POST("/user", c(userController.Create))
 

@@ -38,6 +38,17 @@ func (r *userRepository) Get(id string) (*domain.User, error) {
 	return &user, nil
 }
 
+func (r *userRepository) GetByRole(role string) ([]domain.User, error) {
+	var user []domain.User
+	result := r.db.Where("role = ?", role).Find(&user)
+
+	if result.Error != nil {
+		return nil, fmt.Errorf("cannot query to get user by role: %w", result.Error)
+	}
+
+	return user, nil
+}
+
 func (r *userRepository) GetBySessionId(id string) (*domain.User, error) {
 	var session domain.Session
 	var user domain.User

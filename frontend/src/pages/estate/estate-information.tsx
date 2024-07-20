@@ -1,64 +1,71 @@
 
-import { Link } from "react-router-dom";
+import { Estate } from "@/types";
+import { RefreshCcw } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+const BASE_URL = import.meta.env.VITE_API_URL;
+const MAP_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 
 export function EstateInformationPage() {
+  const { estateID } = useParams();
+  const [estate, setEstate] = useState<Estate>();
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/estate/${estateID}`, {
+      method: "GET"
+    }).then(response => response.json())
+      .then(response => setEstate(response.data.estate))
+  }, [estateID])
+
+  if (!estate) {
+    return (
+      <div className="relative flex flex-col w-full h-screen max-h-screen ">
+        <main className="container flex h-full items-center justify-center">
+          <RefreshCcw className="animate-spin"></RefreshCcw>
+        </main>
+      </div>
+    )
+  }
+
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      <main className="container p-2">
-        <div className="text-2xl font-bold">P001</div>
-        <div className="flex gap-5 items-center justify-between">
-          {/* Left */}
-          <div className="space-y-3 w-1/3 self-start">
-            <div>
+      <main className="container flex flex-col p-2">
+        <div className="text-2xl font-bold p-2">[{estate.ID}] {estate.name}</div>
+        <div className="flex flex-col w-full items-center justify-between">
+          {/* Main */}
+          <div className="flex flex-row w-full gap-x-5">
+            <div className="flex flex-1">
               <img
-                className="w-full h-60 object-cover"
-                src="https://plus.unsplash.com/premium_photo-1713991088877-ec5df174a0f8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              />
-              <img
-                className="w-full h-60 object-cover"
-                src="https://images.unsplash.com/photo-1714284191598-a02b154e8dcd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                className="w-full object-cover"
+                src={estate.images ? `${BASE_URL}/${estate.images[0].path}` : ``}
               />
             </div>
-          </div>
-          {/* Middle */}
-          <div className="w-1/3 space-y-5 self-start ">
-            <div>
-              <div className="bg-neutral-200 p-3 border border-black shadow-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                modi dignissimos nesciunt illo cumque saepe dolorem unde nulla,
-                ullam distinctio at harum, voluptatum accusamus dolores hic
-                explicabo ab nihil! Nihil?
-                <br />
-                พื้นที่: 50 ตารางวา
-                <br />
-                ค่าเช่า: 12000 บาท/เดือน
-                <br />
-                สถานะ: ว่าง
-                <br />
-                จังหวัดข่อนแก่น
-                <br />
-                ส้วนลด 500 บาท
+            <div className="flex flex-col h-full gap-y-2">
+              <div className="flex flex-col h-fit p-3 gap-y-2 divide-y divide-gray-400 bg-gray-200 rounded-md text-lg">
+                <div>พื้นที่: {estate.area} ตารางวา</div>
+                <div>ค่าเช่า: {estate.price} {estate.salesType == "เช่า" ? "บาท/เดือน" : "บาท"}</div>
+                <div>จังหวัด: {estate.province}</div>
+                <div>อำเภอ: {estate.district}</div>
+                <div>ตำบล: {estate.subdistrict}</div>
+                <div>สัญญา: {estate.insurance}</div>
               </div>
-            </div>
-            <div>
-              <img src="https://imgsrv2.voi.id/HpO09gZIQxpPSpVKdPkkZwaQELHpXUDAgoUw26q-tiA/auto/1200/675/sm/1/bG9jYWw6Ly8vcHVibGlzaGVycy8xNTE4MjMvMjAyMjAzMzEwODA3LW1haW4uSlBH.jpg" />
+              <div className="flex flex-1 h-full">
+                <iframe
+                  className="h-full"
+                  src={`https://www.google.com/maps/embed/v1/place?key=${MAP_API_KEY}
+                    &q=${estate.latitude} ${estate.longitude}
+                    &language=th
+                  `}
+                />
+              </div>
+              <button type="button" className="w-full p-2 bg-green-500 rounded-md text-2xl text-white">นัดหมาย</button>
             </div>
           </div>
-          {/* Right */}
-          <div className="w-1/3 self-start flex gap-5 flex-1">
-            <Link to="/estate/1/appointment">
-              <button className="bg-green-500 border text-xl border-black text-white p-2 rounded-md">
-                นัดเข้าชม
-              </button>
-            </Link>
-            <button
-              onClick={() => {
-                window.history.back();
-              }}
-              className="bg-red-500 border text-xl border-black text-white p-2   rounded-md "
-            >
-              {"<=="}
-            </button>
+          {/* Description */}
+          <div className="flex flex-col mt-5 self-start">
+            <div className="text-2xl font-semibold self-start">คำอธิบาย</div>
+            {estate.description}
           </div>
         </div>
       </main>

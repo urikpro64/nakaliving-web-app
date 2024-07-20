@@ -41,7 +41,7 @@ func (r *estateRepository) SaveImage(id string, filepath string) (*domain.Estate
 
 func (r *estateRepository) Get(id string) (*domain.Estate, error) {
 	var estate domain.Estate
-	result := r.db.Where("id = ?", id).First(&estate)
+	result := r.db.Preload("Images").Where("id = ?", id).First(&estate)
 
 	if result.Error == gorm.ErrRecordNotFound {
 		return nil, nil

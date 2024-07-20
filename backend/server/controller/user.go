@@ -22,19 +22,6 @@ func NewUserController(
 	}
 }
 
-func (c *UserController) GetById(ctx *gin.Context) error {
-	id := ctx.Param("id")
-
-	user, err := c.userUseCase.Get(id)
-	if err != nil {
-		return err
-	}
-
-	return response.Success(ctx.Writer, http.StatusOK, response.Map{
-		"user": user,
-	})
-}
-
 func (c *UserController) Create(ctx *gin.Context) error {
 	var payload request.CreateUserPayload
 	var user *domain.User
@@ -69,6 +56,32 @@ func (c *UserController) Create(ctx *gin.Context) error {
 
 	return response.Success(ctx.Writer, http.StatusCreated, response.Map{
 		"user": user,
+	})
+}
+
+func (c *UserController) GetById(ctx *gin.Context) error {
+	id := ctx.Param("id")
+
+	user, err := c.userUseCase.Get(id)
+	if err != nil {
+		return err
+	}
+
+	return response.Success(ctx.Writer, http.StatusOK, response.Map{
+		"user": user,
+	})
+}
+
+func (c *UserController) GetByRole(ctx *gin.Context) error {
+	role := ctx.Param("role")
+
+	users, err := c.userUseCase.GetByRole(role)
+	if err != nil {
+		return err
+	}
+
+	return response.Success(ctx.Writer, http.StatusOK, response.Map{
+		"users": users,
 	})
 }
 

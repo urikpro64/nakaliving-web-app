@@ -21,6 +21,7 @@ import { OwnerAppointmentPage } from "./pages/owner/owner-appointment";
 import { Navbar } from "./components/navbar";
 import { UserRegisterPage } from "./pages/user/user-register";
 import { OwnerRegisterPage } from "./pages/owner/owner-register";
+import { OwnerAgentPage } from "./pages/owner/owner-agent";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -33,14 +34,15 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<UserRegisterPage />} />
           <Route path="/estate" element={<EstatePage />} />
-          <Route path="/estate/:estateId" element={<EstateInformationPage />} />
+          <Route path="/estate/:estateID" element={<EstateInformationPage />} />
           <Route path="/estate/insert" element={<EstateInsertPage />} />
           <Route path="/appointment" element={<AppointmentPage />} />
-          <Route path="/estate/:estateId/appointment" element={<EstateAppointmentPage />} />
+          <Route path="/estate/:estateID/appointment" element={<EstateAppointmentPage />} />
           <Route path="/user" element={<UserInformationPage />} />
           <Route path="/user/appointment" element={<UserAppointmentPage />} />
           <Route path="/owner" element={<OwnerInformationPage />} />
           <Route path="/owner/register" element={<OwnerRegisterPage/>} />
+          <Route path="/owner/agent" element={<OwnerAgentPage/>} />
           <Route path="/owner/estate" element={<OwnerEstatePage />} />
           <Route path="/owner/report" element={<OwnerReportPage />} />
           <Route path="/owner/appointment" element={<OwnerAppointmentPage />} />

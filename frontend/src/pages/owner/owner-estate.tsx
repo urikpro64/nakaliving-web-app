@@ -50,7 +50,7 @@ export function OwnerEstatePage() {
     }
 
     return (
-        <div className="relative flex flex-col w-full max-h-screen  overflow-hidden">
+        <div className="relative flex flex-col w-full h-screen max-h-screen overflow-hidden">
             <main className="flex flex-row h-full">
                 <OwnerSideNavBar />
                 <div className="container flex flex-col h-full space-y-5 p-3 overflow-hidden">

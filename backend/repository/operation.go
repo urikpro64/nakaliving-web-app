@@ -67,10 +67,7 @@ func (r *operationRepository) SaveStateImage(operationID string, filepath string
 	if err != nil {
 		return nil, err
 	}
-	operationImage := &domain.OperationStateImage{
-		Path: filepath,
-	}
-	operationState.Images = append(operationState.Images, *operationImage)
+
 	r.db.Save(&operationState)
 	return operationState, nil
 }

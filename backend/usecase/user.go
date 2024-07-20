@@ -107,6 +107,14 @@ func (u *userUsecase) Get(id string) (*domain.User, error) {
 	return user, nil
 }
 
+func (u *userUsecase) GetByRole(role string) ([]domain.User, error) {
+	users, err := u.userRepository.GetByRole(role)
+	if err != nil {
+		return nil, errs.WrapCode(err, errs.ErrGetUser, "cannot get user by role %s", role)
+	}
+	return users, nil
+}
+
 func (u *userUsecase) GetByEmail(email string) (*domain.User, error) {
 	user, err := u.userRepository.GetByEmail(email)
 	if err != nil {

@@ -29,7 +29,9 @@ export function OwnerSideNavBar() {
                     </div>
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <Users />
-                        <div>นายหน้า</div>
+                        <Link to="/owner/agent">
+                            <div>นายหน้า</div>
+                        </Link>
                     </div>
                     <div className="flex flex-row w-full gap-x-2 items-center">
                         <BookUser />

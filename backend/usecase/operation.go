@@ -34,9 +34,9 @@ func (u *operationUsecase) Create(userID uint, estateID uint, appointment time.T
 	operation := &domain.Operation{
 		UserID:   userID,
 		EstateID: estate.ID,
-		States: []domain.OperationState{
-			{
-				Appointment: appointment,
+		States: domain.OperationState{
+			Appointment: domain.Appointment{
+				Time: appointment,
 			},
 		},
 	}
