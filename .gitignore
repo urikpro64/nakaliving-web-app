@@ -25,3 +25,6 @@ dist-ssr
 
 # Backend
 backend/other/images/*
+
+# Env
+.env
