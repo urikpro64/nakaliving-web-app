@@ -1,18 +1,29 @@
-import { Response } from "@/types";
-import { BookUser, Home, LogOutIcon, User } from "lucide-react"
+import { Response, User } from "@/types";
+import { BookUser, Home, LogOutIcon, UserIcon } from "lucide-react"
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
 export function AgentSideNavBar() {
     const navigate = useNavigate();
+    const [user, setUser] = useState<User>();
+    useEffect(() => {
+        fetch(`${BASE_URL}/auth/me`, {
+            method: "GET",
+            credentials: "include",
+        }).then(response => response.json())
+            .then(response => setUser(response.data))
+    })
+
+
     const onLogout = async () => {
         const response: Response = await fetch(`${BASE_URL}/auth/signout`, {
             method: "POST",
             credentials: "include",
         }).then(response => response.json())
         console.log(response);
-        if(response.error) {
+        if (response.error) {
             console.log(response.error)
             return
         }
@@ -27,12 +38,12 @@ export function AgentSideNavBar() {
                     </div>
                     <div className="flex flex-col">
                         <div className="text-lg">Agent</div>
-                        <div className="text-xs font-normal">นายเอ สกุลบี</div>
+                        <div className="text-xs font-normal">{user?.name}</div>
                     </div>
                 </div>
                 <div className="flex flex-col h-full pt-4 gap-y-4 text-neutral-700 font-medium text-sm">
                     <div className="flex flex-row w-full gap-x-2 items-center">
-                        <User />
+                        <UserIcon />
                         <Link to="/agent">
                             <div>ข้อมูลผู้ใช้</div>
                         </Link>

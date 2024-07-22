@@ -1,6 +1,6 @@
-import { Operation } from "@/types";
+import { Operation, User } from "@/types";
 
-export function AppointmentCard({operation}:{operation:Operation}) {
+export function AppointmentCard({operation, agents}:{operation:Operation, agents:User[]}) {
     const date = new Date(operation.appointment.time).toLocaleString();
     return (
         <div className="flex flex-row gap-x-2 justify-between items-center">
@@ -19,9 +19,10 @@ export function AppointmentCard({operation}:{operation:Operation}) {
                 <div className="flex flex-row">
                     <div>นายหน้า:</div>
                     <select name="agent" id="agent">
-                        <option value={"AG001"}>นายเอ</option>
-                        <option value={"AG001"}>นายบี</option>
-                        <option value={"AG001"}>นายซี</option>
+                        {agents && agents.map(agent => (
+                            <option value={agent.ID}>{agent.name}</option>
+                        ))}
+                        
                     </select>
                 </div>
                 <div>เวลา: {date}</div>
