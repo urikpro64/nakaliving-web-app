@@ -58,6 +58,19 @@ func (c *OperationController) GetById(ctx *gin.Context) error {
 	})
 }
 
+func (c *OperationController) GetbyUser(ctx *gin.Context) error {
+	user := middleware.GetUserFromCtx(ctx)
+
+	operations, err := c.operationUseCase.GetbyUser(user.ID)
+	if err != nil {
+		return err
+	}
+
+	return response.Success(ctx.Writer, http.StatusOK, response.Map{
+		"operations": operations,
+	})
+}
+
 func (c *OperationController) GetAll(ctx *gin.Context) error {
 	operations, err := c.operationUseCase.GetAll()
 	if err != nil {

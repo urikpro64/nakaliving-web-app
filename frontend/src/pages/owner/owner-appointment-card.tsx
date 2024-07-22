@@ -1,6 +1,6 @@
 import { Operation } from "@/types";
 
-export function AppointmentCard({operation}:{operation:Operation}) {
+export function OwnerAppointmentCard({operation}:{operation:Operation}) {
     const date = new Date(operation.appointment.time).toLocaleString();
     return (
         <div className="flex flex-row gap-x-2 justify-between items-center">

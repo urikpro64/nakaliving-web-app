@@ -6,7 +6,6 @@ import "@/assets/css/global.css";
 import { AppointmentPage } from "@/pages/appointment";
 import { DashboardPage } from "@/pages/dashboard";
 import { EstatePage } from "@/pages/estate/estate";
-import { EstateAppointmentPage } from "@/pages/estate/estate-appointment";
 import { EstateInformationPage } from "@/pages/estate/estate-information";
 import { EstateInsertPage } from "./pages/estate/estate-insert";
 import { LandingPage } from "@/pages/landing";
@@ -37,7 +36,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/estate/:estateID" element={<EstateInformationPage />} />
           <Route path="/estate/insert" element={<EstateInsertPage />} />
           <Route path="/appointment" element={<AppointmentPage />} />
-          <Route path="/estate/:estateID/appointment" element={<EstateAppointmentPage />} />
           <Route path="/user" element={<UserInformationPage />} />
           <Route path="/user/appointment" element={<UserAppointmentPage />} />
           <Route path="/owner" element={<OwnerInformationPage />} />

@@ -102,3 +102,12 @@ func (r *userRepository) ChangeInfo(id uint, name string, address string, tel st
 
 	return &user, nil
 }
+
+func (r *userRepository) Delete(id string) error {
+	result := r.db.Delete(&domain.User{}, id)
+	if result.Error != nil {
+		return fmt.Errorf("cannot query to delete estate: %w", result.Error)
+	}
+
+	return nil
+}

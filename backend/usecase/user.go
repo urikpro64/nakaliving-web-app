@@ -139,3 +139,11 @@ func (u *userUsecase) ChangeInfo(id uint, name string, address string, tel strin
 
 	return user, nil
 }
+
+func (u *userUsecase) Delete(id string) error {
+	err := u.userRepository.Delete(id)
+	if err != nil {
+		return errs.WrapCode(err, errs.ErrDeleteEstate, "cannot delete user by id %s", id)
+	}
+	return nil
+}

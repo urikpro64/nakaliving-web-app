@@ -20,7 +20,7 @@ export function UserSideNavBar() {
     }
 
     return (
-        <nav className="px-4 py-4 shadow-2xl">
+        <nav className="flex h-full px-4 py-4 shadow-2xl">
             <div className="flex flex-col w-full h-full justify-between text-nowrap font-semibold gap-y-2 divide-y divide-gray-400">
                 <div className="flex flex-row items-center gap-x-2">
                     <div className="bg-blue-600 text-white p-2 rounded-md">

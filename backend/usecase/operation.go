@@ -34,10 +34,8 @@ func (u *operationUsecase) Create(userID uint, estateID uint, appointment time.T
 	operation := &domain.Operation{
 		UserID:   userID,
 		EstateID: estate.ID,
-		States: domain.OperationState{
-			Appointment: domain.Appointment{
-				Time: appointment,
-			},
+		Appointment: domain.Appointment{
+			Time: appointment,
 		},
 	}
 
@@ -53,6 +51,14 @@ func (u *operationUsecase) Get(id string) (*domain.Operation, error) {
 		return nil, errs.WrapCode(err, errs.ErrGetOperation, "cannot get operation by id %s", id)
 	}
 	return operation, nil
+}
+
+func (u *operationUsecase) GetbyUser(id uint) ([]domain.Operation, error) {
+	operations, err := u.operationRepository.GetbyUserId(id)
+	if err != nil {
+		return nil, errs.WrapCode(err, errs.ErrGetOperation, "cannot get all operation")
+	}
+	return operations, nil
 }
 
 func (u *operationUsecase) GetAll() ([]domain.Operation, error) {
@@ -74,13 +80,4 @@ func (u *operationUsecase) ChangeInfo(
 	}
 
 	return operation, nil
-}
-
-func (u *operationUsecase) SaveStateImage(id string, filename string, state int) (*domain.OperationState, error) {
-	urlPath := fmt.Sprintf("images/operation/%s/%d_%s", id, state, filename)
-	operationState, err := u.operationRepository.SaveStateImage(id, urlPath, state)
-	if err != nil {
-		return nil, errs.WrapCode(err, errs.ErrChangeOperationInfo, "cannot save operation image by id %s", id)
-	}
-	return operationState, nil
 }

@@ -3,6 +3,7 @@ import { Estate } from "@/types";
 import { RefreshCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AppointmentInsertModal } from "./appointment-insert-modal";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const MAP_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
@@ -10,6 +11,7 @@ const MAP_API_KEY = import.meta.env.VITE_GOOGLE_API_KEY;
 export function EstateInformationPage() {
   const { estateID } = useParams();
   const [estate, setEstate] = useState<Estate>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetch(`${BASE_URL}/estate/${estateID}`, {
@@ -30,7 +32,10 @@ export function EstateInformationPage() {
 
   return (
     <div className="relative w-full flex max-h-screen flex-col ">
-      <main className="container flex flex-col p-2">
+      <main className="container relative flex flex-col p-2">
+        {isModalOpen &&
+          <AppointmentInsertModal setOpen={setIsModalOpen} estateID={estate.ID}/>
+        }
         <div className="text-2xl font-bold p-2">[{estate.ID}] {estate.name}</div>
         <div className="flex flex-col w-full items-center justify-between">
           {/* Main */}
@@ -59,7 +64,11 @@ export function EstateInformationPage() {
                   `}
                 />
               </div>
-              <button type="button" className="w-full p-2 bg-green-500 rounded-md text-2xl text-white">นัดหมาย</button>
+              <button
+                type="button"
+                className="w-full p-2 bg-green-500 shadow-md rounded-md text-2xl text-white"
+                onClick={() => setIsModalOpen(true)}
+              >นัดหมาย</button>
             </div>
           </div>
           {/* Description */}

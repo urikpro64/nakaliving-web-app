@@ -108,3 +108,13 @@ func (c *UserController) ChangeInfo(ctx *gin.Context) error {
 		"user": user,
 	})
 }
+
+func (c *UserController) Delete(ctx *gin.Context) error {
+	id := ctx.Param("id")
+
+	err := c.userUseCase.Delete(id)
+	if err != nil {
+		return err
+	}
+	return response.Success(ctx.Writer, http.StatusOK, response.Map{})
+}

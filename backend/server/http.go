@@ -52,7 +52,7 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	userController := controller.NewUserController(s.useCases.User)
 	authController := controller.NewAuthController(s.useCases.Auth, s.useCases.User)
 	estateController := controller.NewEstateController(s.useCases.Estate)
-	// operationController := controller.NewOperationController(s.useCases.Operation)
+	operationController := controller.NewOperationController(s.useCases.Operation)
 
 	// Initialize middlewares
 	c := middleware.ErrorHandler // For alias, c stand for controller
@@ -73,6 +73,7 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.GET("/user/role/:role", c(authMiddleware), c(userController.GetByRole))
 	s.router.PATCH("/user/changeinfo", c(authMiddleware), c(userController.ChangeInfo))
 	s.router.POST("/user", c(userController.Create))
+	s.router.DELETE("/user/:id", c(authMiddleware), c(userController.Delete))
 
 	s.router.GET("/auth/me", c(authMiddleware), c(authController.Me))
 	s.router.POST("/auth/signin", c(authController.SignIn))
@@ -84,6 +85,11 @@ func (s *HTTPServer) applyRoutes() http.Handler {
 	s.router.GET("/estate/visible", c(estateController.GetAllVisible))
 	s.router.PATCH("/estate/:id/visible", c(estateController.ChangeVisible))
 	s.router.POST("/estate", c(authMiddleware), c(estateController.Create))
+
+	s.router.POST("/operation/appointment", c(authMiddleware), c(operationController.Create))
+	s.router.GET("/operation", c(authMiddleware), c(operationController.GetAll))
+	s.router.GET("/operation/:id", c(authMiddleware), c(operationController.GetById))
+	s.router.GET("/operation/user", c(authMiddleware), c(operationController.GetbyUser))
 	return s.router
 }
 

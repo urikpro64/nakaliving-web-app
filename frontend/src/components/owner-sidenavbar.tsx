@@ -1,7 +1,23 @@
+import { Response } from "@/types";
 import { BookUser, Building2, Home, LogOutIcon, ScrollText, User, Users } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+
+const BASE_URL = import.meta.env.VITE_API_URL
 
 export function OwnerSideNavBar() {
+    const navigate = useNavigate();
+    const onLogout = async () => {
+        const response: Response = await fetch(`${BASE_URL}/auth/signout`, {
+            method: "POST",
+            credentials: "include",
+        }).then(response => response.json())
+        console.log(response);
+        if(response.error) {
+            console.log(response.error)
+            return
+        }
+        navigate("/")
+    }
     return (
         <nav className="flex h-full px-4 py-4 shadow-2xl">
             <div className="flex flex-col w-full h-full justify-between text-nowrap font-semibold gap-y-2 divide-y divide-gray-400">
@@ -49,7 +65,7 @@ export function OwnerSideNavBar() {
                 <div className="flex flex-col pt-2">
                     <div className="flex flex-row w-full gap-x-2 items-center p-2 bg-red-500 text-white rounded-md shadow-md drop-shadow-md">
                         <LogOutIcon />
-                        <div>ออกจากระบบ</div>
+                        <button onClick={onLogout}>ออกจากระบบ</button>
                     </div>
                 </div>
             </div>
