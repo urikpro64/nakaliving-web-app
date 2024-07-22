@@ -104,7 +104,7 @@ func (r *userRepository) ChangeInfo(id uint, name string, address string, tel st
 }
 
 func (r *userRepository) Delete(id string) error {
-	result := r.db.Delete(&domain.User{}, id)
+	result := r.db.Unscoped().Delete(&domain.User{}, id)
 	if result.Error != nil {
 		return fmt.Errorf("cannot query to delete estate: %w", result.Error)
 	}

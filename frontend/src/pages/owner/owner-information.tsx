@@ -1,4 +1,3 @@
-
 import { OwnerSideNavBar } from "@/components/owner-sidenavbar";
 import { Response, User } from "@/types";
 import { RefreshCcw } from "lucide-react";

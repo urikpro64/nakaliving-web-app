@@ -21,6 +21,7 @@ import { Navbar } from "./components/navbar";
 import { UserRegisterPage } from "./pages/user/user-register";
 import { OwnerRegisterPage } from "./pages/owner/owner-register";
 import { OwnerAgentPage } from "./pages/owner/owner-agent";
+import { AgentInformationPage } from "./pages/agent/agent-information";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/appointment" element={<AppointmentPage />} />
           <Route path="/user" element={<UserInformationPage />} />
           <Route path="/user/appointment" element={<UserAppointmentPage />} />
+          <Route path="/agent" element={<AgentInformationPage />} />
           <Route path="/owner" element={<OwnerInformationPage />} />
           <Route path="/owner/register" element={<OwnerRegisterPage/>} />
           <Route path="/owner/agent" element={<OwnerAgentPage/>} />

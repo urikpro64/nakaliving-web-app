@@ -12,7 +12,7 @@ export function OwnerAgentPage() {
     const [insertModal, setInstertModal] = useState<boolean>(false);
     const [actionReload, setActionReload] = useState<boolean>(false);
     useEffect(() => {
-        fetch(`${BASE_URL}/user/role/user`, {
+        fetch(`${BASE_URL}/user/role/agent`, {
             method: "GET",
             credentials: "include"
         }).then(response => response.json())
@@ -49,7 +49,7 @@ export function OwnerAgentPage() {
                 <OwnerSideNavBar />
                 <div className="container relative flex flex-col h-full gap-y-5 p-3 overflow-hidden">
                     {insertModal &&
-                        <AgentInsertModal setOpen={setInstertModal} />
+                        <AgentInsertModal setOpen={setInstertModal} setActionReload={setActionReload}/>
                     }
                     <div className="flex flex-row justify-between items-center">
                         <h1 className="text-xl font-semibold">นายหน้า</h1>
